@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "image": "make postgres",
-    "setup": "make createdb && make create-table && make populate-table",
+    "image-postgres": "cd config/postgres && make postgres",
+    "create-postgres": "cd config/postgres && make createdb && make create-table && make populate-table",
+    "image-mysql": "cd config/mysql && make mysql",
+    "create-mysql": "cd config/mysql && make createdb && make create-table && make populate-table",
     "compile": "rm -rf dist/lib && tsc && tsc --build tsconfig.es5.json",
     "dev": "npm run compile && cd dist/test && node test.js"
   },

@@ -22,8 +22,8 @@ class DBOperations {
     })
   }
 
-  push(keys : string[], values : string[]) {
-    const sql = this.queryBuilder.create(this.tableName, keys, values);
+  push(data : {key : string, value : string}[]) {
+    const sql = this.queryBuilder.create(this.tableName, data);
     return new Promise((resolve, reject) => {
       client.query(sql, (err, res) => {
         if (err) {

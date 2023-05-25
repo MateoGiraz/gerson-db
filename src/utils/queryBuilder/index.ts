@@ -1,7 +1,9 @@
 class QueryBuilder {
-  create(tableName: string, keys: string[], values: string[]): string {
-    const formatedKeys = keys.map((key) => key).join(',');
-    const formatedValues = values.map((value) => value).join("','");
+  create(tableName: string, data: {key : string, value : string}[]): string {
+    const items = Object.values(data);
+
+    const formatedKeys = items.map((item) => Object.keys(item)).join(',');
+    const formatedValues = items.map((item) => Object.values(item)).join("','");
 
     return `INSERT INTO ${tableName} (${formatedKeys}) VALUES ('${formatedValues}')`
   }

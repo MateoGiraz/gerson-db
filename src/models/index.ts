@@ -10,10 +10,10 @@ class DBOperations {
     this.queryBuilder = new QueryBuilder();
   }
 
-  get(columns: string[]) {
-    const sql = this.queryBuilder.fetch(this.tableName, columns);
+  get(columns: string[], conditions : {key : string, value : string}[]) {
+    const sql = this.queryBuilder.fetch(this.tableName, columns, conditions);
     return new Promise((resolve, reject) => {
-      client.query(sql, (err, res) => {
+      client.query(sql, Object.values(conditions).map(cond => Object.values(cond)[0]), (err, res) => {
         if (err) {
           reject(err)
         }
@@ -22,8 +22,8 @@ class DBOperations {
     })
   }
 
-  push(keys : string[], values : string[]) {
-    const sql = this.queryBuilder.create(this.tableName, keys, values);
+  push(data : {key : string, value : string}[]) {
+    const sql = this.queryBuilder.create(this.tableName, data);
     return new Promise((resolve, reject) => {
       client.query(sql, (err, res) => {
         if (err) {

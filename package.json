@@ -4,15 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "image": "make postgres",
-    "setup": "make createdb && make create-table && make populate-table",
+    "image-postgres": "cd config/postgres && make postgres",
+    "setup-postgres": "cd config/postgres && make createdb && make create-table && make populate-table",
+    "image-mysql": "cd config/mysql && make mysql",
+    "setup-mysql": "cd config/mysql && make createdb && make create-table && make populate-table",
     "compile": "rm -rf dist/lib && tsc && tsc --build tsconfig.es5.json",
     "dev": "npm run compile && cd dist/test && node test.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "mysql2": "^3.3.2",
     "pg": "^8.11.0",
     "typescript": "^5.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.2.3"
   }
 }

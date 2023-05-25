@@ -1,4 +1,6 @@
-class QueryBuilder {
+import { QueryBuilder } from "./queryBuilder";
+
+class PostgresQueryBuilder extends QueryBuilder {
   create(tableName: string, data: {key : string, value : string}[]): string {
     const items = Object.values(data);
 
@@ -23,4 +25,4 @@ class QueryBuilder {
   }
 }
 
-export { QueryBuilder };
+export { PostgresQueryBuilder };

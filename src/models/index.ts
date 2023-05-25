@@ -1,6 +1,9 @@
-import { QueryBuilder } from "../utils/queryBuilder";
+import { PostgresQueryBuilder } from "../queryBuilder/postgresQueryBuilder";
+import { QueryBuilder } from "../queryBuilder/queryBuilder";
 import { ClientAdapter } from "../db/clientAdapter/clientAdapter";
 import { PostgresClient } from "../db/postgres/postgresClient";
+import { MysqlQueryBuilder } from "../queryBuilder/mysqlQueryBuilder";
+import { MysqlClient } from "../db/mysql/mysqlClient";
 
 class DBOperations {
   tableName: string; 
@@ -9,8 +12,8 @@ class DBOperations {
 
   constructor(tableName: string) {
     this.tableName = tableName;
-    this.queryBuilder = new QueryBuilder();
-    this.client = new PostgresClient();
+    this.queryBuilder = new MysqlQueryBuilder();
+    this.client = new MysqlClient();
   }
 
   get(columns: string[], conditions : {key : string, value : string}[]) {
@@ -20,7 +23,7 @@ class DBOperations {
         if (err) {
           reject(err)
         }
-        resolve(res.rows)
+        resolve(res.rows ? res.rows : res)
       })
     })
   }
@@ -32,7 +35,7 @@ class DBOperations {
         if (err) {
           reject(err)
         }
-        resolve(res.rows)
+        resolve(res.rows ? res.rows : res)
       })
     })
   }

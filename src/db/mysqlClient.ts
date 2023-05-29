@@ -1,5 +1,5 @@
 const mysql = require('mysql2');
-import { ClientAdapter } from "../clientAdapter/clientAdapter";
+import { ClientAdapter } from "./clientAdapter";
 
 class MysqlClient extends ClientAdapter {
   client : any;

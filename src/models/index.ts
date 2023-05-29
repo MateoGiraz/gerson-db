@@ -1,22 +1,28 @@
 import { PostgresQueryBuilder } from "../queryBuilder/postgresQueryBuilder";
 import { QueryBuilder } from "../queryBuilder/queryBuilder";
-import { ClientAdapter } from "../db/clientAdapter/clientAdapter";
-import { PostgresClient } from "../db/postgres/postgresClient";
+import { ClientAdapter } from "../db/clientAdapter";
+import { PostgresClient } from "../db/postgresClient";
 import { MysqlQueryBuilder } from "../queryBuilder/mysqlQueryBuilder";
-import { MysqlClient } from "../db/mysql/mysqlClient";
+import { MysqlClient } from "../db/mysqlClient";
+import { MariadbClient } from "../db/mariadbClient";
+
+
 
 class DBOperations {
   tableName: string; 
+  model: string[];
+  
   queryBuilder: QueryBuilder;
   client : ClientAdapter;
 
-  constructor(tableName: string) {
+  constructor(tableName: string, model : string[]) {
     this.tableName = tableName;
-    this.queryBuilder = new MysqlQueryBuilder();
-    this.client = new MysqlClient();
+    this.model = model;
+    this.queryBuilder = new PostgresQueryBuilder();
+    this.client = new PostgresClient();
   }
 
-  get(columns: string[], conditions : {key : string, value : string}[]) {
+  get(conditions: { key: string, value: string }[], columns: string[] = this.model) {
     const sql = this.queryBuilder.fetch(this.tableName, columns, conditions);
     return new Promise((resolve, reject) => {
       this.client.query(sql, Object.values(conditions).map(cond => Object.values(cond)[0]), (err, res) => {
@@ -38,6 +44,10 @@ class DBOperations {
         resolve(res.rows ? res.rows : res)
       })
     })
+  }
+  
+  getAll(columns: string[] = this.model) {
+    return this.get([], columns);
   }
 }
 

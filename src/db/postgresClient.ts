@@ -1,4 +1,4 @@
-import { ClientAdapter } from "../clientAdapter/clientAdapter";
+import { ClientAdapter } from "./clientAdapter";
 import { Client } from 'pg'
 
 class PostgresClient extends ClientAdapter {

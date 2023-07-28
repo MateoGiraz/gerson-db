@@ -4,7 +4,7 @@ import { ClientAdapter } from "../clientAdapter/clientAdapter";
 class MysqlClient extends ClientAdapter {
   client : any;
 
-  constructor() {
+  constructor(connectionString : string) {
     super();
     this.client = mysql.createConnection({
       host: 'localhost',

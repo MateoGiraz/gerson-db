@@ -4,7 +4,7 @@ import { Client } from 'pg'
 class PostgresClient extends ClientAdapter {
   client: Client;
 
-  constructor() {
+  constructor(connectionString : string) {
     super();
     this.client = new Client({
       user: 'postgres',

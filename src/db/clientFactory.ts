@@ -6,7 +6,7 @@ class ClientFactory{
       switch (client) {
         case 'mysql':
           return new MysqlClient(connectionString);
-        case 'postgres':
+        case 'postgresql':
           return new PostgresClient(connectionString);
         default:
           throw new Error('Invalid db');

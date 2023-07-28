@@ -8,7 +8,7 @@ create-table:
 	docker exec -it postgres-orm-test psql -U postgres testDB -c "CREATE TABLE users (id SERIAL PRIMARY KEY, name VARCHAR(255), email VARCHAR(255))"
 
 populate-table:
-	docker exec -it postgres-orm-test psql -U postgres testDB -c "INSERT INTO users (name) VALUES ('John Doe')"
+	docker exec -it postgres-orm-test psql -U postgres testDB -c "INSERT INTO users (name, email) VALUES ('John Doe', 'johndoe@gmail.com')"
 
 dropdb:
 	docker exec -it postgres-orm-test dropdb -U postgres testDB

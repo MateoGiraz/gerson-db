@@ -3,15 +3,11 @@ import { Client } from 'pg'
 
 class PostgresClient extends ClientAdapter {
   client: Client;
-
-  constructor(connectionString : string) {
+  
+  constructor(connectionString: string) {
     super();
     this.client = new Client({
-      user: 'postgres',
-      host: 'localhost',
-      database: 'testDB',
-      password: 'secret',
-      port: 5432,
+      connectionString: connectionString
     })
 
     this.client.connect(function (err) {

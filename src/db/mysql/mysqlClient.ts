@@ -6,12 +6,7 @@ class MysqlClient extends ClientAdapter {
 
   constructor(connectionString : string) {
     super();
-    this.client = mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: 'secret',
-      database: 'testDB',
-    });
+    this.client = mysql.createConnection(connectionString);
   }
 
   query(sql: string, params: string[], cb: (err, res) => void) {

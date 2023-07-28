@@ -6,7 +6,7 @@ class QueryBuilderFactory{
       switch (client) {
         case 'mysql':
           return new MysqlQueryBuilder();
-        case 'postgres':
+        case 'postgresql':
           return new PostgresQueryBuilder();
         default:
           throw new Error('Invalid db');

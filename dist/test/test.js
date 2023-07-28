@@ -1,7 +1,11 @@
 const { Table } = require('../../dist/lib/es5/index.js')
 const { Database } = require('../../dist/lib/es5/index.js')
 
-const database = new Database('postgres', '')
+const postgresConString = 'postgresql://postgres:secret@localhost:5432/testDB'
+const mysqlConString = 'mysql://root:secret@localhost:3306/testDB'
+
+const database = new Database(mysqlConString)
+
 const users = new Table('users', ['name', 'email'], database)
 
 //users.push([{ 'name': 'mategz' }, { 'email': 'gzoficial@gmail.com' }])

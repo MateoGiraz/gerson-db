@@ -6,6 +6,8 @@ const users = new Table('users', ['name', 'email'], database)
 
 //users.push([{ 'name': 'mategz' }, { 'email': 'gzoficial@gmail.com' }])
 
-users.get([{ 'name': 'mategz' }], ['email']).then((user) => console.log(user))
+//users.get([{ 'name': 'mategz' }], ['email']).then((user) => console.log(user))
+
+users.getAll(['name']).then((users) => console.log(users))
 
 //users.get(['name'], []).then((user) => console.log(user))

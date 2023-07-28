@@ -34,6 +34,10 @@ class TableOperations {
       })
     })
   }
+
+  getAll(columns : string[]) {
+    return this.get([], columns);
+  }
 }
 
 export { TableOperations }

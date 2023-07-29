@@ -1,19 +1,12 @@
 import { QueryBuilder } from "./queryBuilder";
 
 class MysqlQueryBuilder extends QueryBuilder {
-  create(tableName: string, data: { key: string, value: string }[]): string {
-    const columns = data.map(item => Object.keys(item)).join(',');
-    const values = data.map(item => `'${Object.values(item)}'`).join(',');
-
-    return `INSERT INTO ${tableName} (${columns}) VALUES (${values})`;
-  }
-
-  fetch(tableName: string, columns: string[], conditions: { key: string, value: string }[]): string {
+  fetch(tableName: string, columns: string[], conditions: [string,string][]): string {
     const cols = columns.join(',');
 
     if (conditions.length > 0) {
       const conds = conditions
-        .map((cond, index) => `${Object.keys(cond)} = '${Object.values(cond)}'`)
+        .map((cond) => `${cond[0]} = '${cond[1]}'`)
         .join(' AND ');
 
       return `SELECT ${cols} FROM ${tableName} WHERE ${conds}`;
@@ -21,6 +14,7 @@ class MysqlQueryBuilder extends QueryBuilder {
 
     return `SELECT ${cols} FROM ${tableName}`;
   }
+
 }
 
 export { MysqlQueryBuilder };

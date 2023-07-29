@@ -8,7 +8,7 @@ create-table:
 	docker exec -it mysql-orm-test mysql -u root -psecret -D testDB -e "CREATE TABLE users (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), email VARCHAR(255));"
 
 populate-table:
-	docker exec -it mysql-orm-test mysql -u root -psecret -D testDB -e "INSERT INTO users (name) VALUES ('John Doe');"
+	docker exec -it mysql-orm-test mysql -u root -psecret -D testDB -e "INSERT INTO users (name, email) VALUES ('John Doe', 'johndoe@gmail.com');"
 
 dropdb:
 	docker exec -it mysql-orm-test mysql -u root -psecret -e "DROP DATABASE IF EXISTS testDB;"

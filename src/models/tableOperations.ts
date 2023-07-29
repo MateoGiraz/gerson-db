@@ -11,10 +11,10 @@ class TableOperations {
     this.tableName = tableName;
   }
 
-  get(conditions : {key : string, value : string}[], columns: string[] = this.model) {
+  get(conditions: [string,string][], columns: string[] = this.model) {
     const sql = this.db.queryBuilder.fetch(this.tableName, columns, conditions);
     return new Promise((resolve, reject) => {
-      this.db.client.query(sql, Object.values(conditions).map(cond => Object.values(cond)[0]), (err, res) => {
+      this.db.client.query(sql, conditions.map(cond => cond[1]), (err, res) => {
         if (err) {
           reject(err)
         }
@@ -23,7 +23,7 @@ class TableOperations {
     })
   }
 
-  push(data : {key : string, value : string}[]) {
+  push(data : [string,string][]) {
     const sql = this.db.queryBuilder.create(this.tableName, data);
     return new Promise((resolve, reject) => {
       this.db.client.query(sql, [], (err, res) => {
@@ -37,6 +37,10 @@ class TableOperations {
 
   getAll(columns : string[]) {
     return this.get([], columns);
+  }
+
+  getById(id: string, columns: string[]) {
+    return this.get([["id", id]], columns);
   }
 }
 

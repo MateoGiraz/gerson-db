@@ -35,6 +35,34 @@ class TableOperations {
     })
   }
 
+  delete(conditions : [string,string][]) {
+    const sql = this.db.queryBuilder.delete(this.tableName, conditions);
+    return new Promise((resolve, reject) => {
+      this.db.client.query(sql, [], (err, res) => {
+        if (err) {
+          reject(err)
+        }
+        resolve(res.rows ? res.rows : res)
+      })
+    })
+  }
+
+  update(data: [string, string][], conditions: [string, string][]) {
+    const sql = this.db.queryBuilder.update(this.tableName, data, conditions);
+    return new Promise((resolve, reject) => {
+      this.db.client.query(sql, [], (err, res) => {
+        if (err) {
+          reject(err)
+        }
+        resolve(res.rows ? res.rows : res)
+      })
+    })
+  }
+
+  deleteByid(id: string) {
+    return this.delete([["id", id]]);
+  }
+
   getAll(columns : string[]) {
     return this.get([], columns);
   }

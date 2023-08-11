@@ -2,7 +2,7 @@ import { Database } from "./database";
 
 class TableOperations {
   model: string[];
-  tableName: string; 
+  tableName: string;
   db: Database;
 
   constructor(tableName: string, model: string[], db: Database) {
@@ -11,7 +11,7 @@ class TableOperations {
     this.tableName = tableName;
   }
 
-  get(conditions: [string,string][], columns: string[] = this.model) {
+  get(conditions: [string, string][], columns: string[] = this.model) {
     const sql = this.db.queryBuilder.fetch(this.tableName, columns, conditions);
     return new Promise((resolve, reject) => {
       this.db.client.query(sql, conditions.map(cond => cond[1]), (err, res) => {
@@ -23,26 +23,26 @@ class TableOperations {
     })
   }
 
-  push(data : [string,string][]) {
+  push(data: [string, string][]) {
     const sql = this.db.queryBuilder.create(this.tableName, data);
     return new Promise((resolve, reject) => {
       this.db.client.query(sql, [], (err, res) => {
         if (err) {
           reject(err)
         }
-        resolve(res.rows ? res.rows : res)
+        resolve('ok')
       })
     })
   }
 
-  delete(conditions : [string,string][]) {
+  delete(conditions: [string, string][]) {
     const sql = this.db.queryBuilder.delete(this.tableName, conditions);
     return new Promise((resolve, reject) => {
       this.db.client.query(sql, [], (err, res) => {
         if (err) {
           reject(err)
         }
-        resolve(res.rows ? res.rows : res)
+        resolve('ok')
       })
     })
   }
@@ -54,21 +54,26 @@ class TableOperations {
         if (err) {
           reject(err)
         }
-        resolve(res.rows ? res.rows : res)
+        resolve('ok')
       })
     })
   }
 
-  deleteByid(id: string) {
-    return this.delete([["id", id]]);
+  async updateById(id: string, data: [string, string][]) {
+    return this.update(data, [['id', id]]);
+  }
+  
+  async deleteById(id: string) {
+    return this.delete([['id', id]]);
   }
 
   getAll(columns : string[]) {
     return this.get([], columns);
   }
 
-  getById(id: string, columns: string[]) {
-    return this.get([["id", id]], columns);
+  async getById(id: string, columns: string[]) {
+    const retArr = await this.get([['id', id]], columns);
+    return retArr[0] ?? null;
   }
 }
 

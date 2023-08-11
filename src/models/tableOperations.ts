@@ -59,11 +59,11 @@ class TableOperations {
     })
   }
 
-  async updateById(id: string, data: [string, string][]) {
+  updateById(id: string, data: [string, string][]) {
     return this.update(data, [['id', id]]);
   }
   
-  async deleteById(id: string) {
+  deleteById(id: string) {
     return this.delete([['id', id]]);
   }
 

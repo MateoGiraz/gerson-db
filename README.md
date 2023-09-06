@@ -1,6 +1,6 @@
-# gerson-orm
+# gerson-db
 ## About the project:
-Gerson ORM is a tool developed in Typescript used in [gerson-api](https://github.com/MateoGiraz/gerson-api).
+Gerson db is a tool developed in Typescript used in [gerson-api](https://github.com/MateoGiraz/gerson-api).
 Gerson helps you to push and query your database effortlessly.
 
 ## Features:
